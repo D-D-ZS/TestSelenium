@@ -6,12 +6,15 @@
 # Author  : DanDan Zhao 
 # File    : test_add_member.py  
 #
-from time import sleep
+import logging
 
 import pytest
 import yaml
 
 from page.main_page import Main
+from utils.log_helper import LogHelper
+
+LogHelper().set_logger()
 
 
 class TestAddMember:
@@ -29,4 +32,3 @@ class TestAddMember:
         self.main.got_to_contacts().go_to_add_member().add_member(username, account, phone)
         re = self.main.got_to_contacts().get_name(username)
         assert re
-

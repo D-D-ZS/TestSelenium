@@ -1,0 +1,5 @@
+logging:
+  level: 'info'
+  path: 'C:\Users\shaun\PycharmProjects\TestSelenium\debug.log'
+  format: '%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s'
+  encode: 'utf-8'

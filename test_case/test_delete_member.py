@@ -6,7 +6,6 @@
 # Author  : DanDan Zhao 
 # File    : test_delete_member.py  
 #
-from time import sleep
 
 import pytest
 import yaml

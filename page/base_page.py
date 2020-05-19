@@ -11,6 +11,10 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
+import logging
+from utils.log_helper import LogHelper
+
+LogHelper().set_logger()
 
 
 class BasePage:
@@ -27,6 +31,7 @@ class BasePage:
             self._driver = driver
         if self._base_url != "":
             self._driver.get(self._base_url)
+            logging.info(f'访问地址：{self._base_url}')
 
     def find(self, by, locator):
         return self._driver.find_element(by, locator)
