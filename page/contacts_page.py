@@ -48,9 +48,9 @@ class ContactsPage(BasePage):
             # self.wait_for_click((By.CSS_SELECTOR, '.member_colRight_memberTable_th_Checkbox'))
             self.wait_for_click((By.CSS_SELECTOR, '.js_operationBar_footer>.js_add_member'))
             # elements = self.finds(By.CSS_SELECTOR, '.member_colRight_memberTable_td:nth-child(2)')
-            member_tr = self.finds(By.CSS_SELECTOR, '.member_colRight_memberTable_tr_Inactive')
+            member_tr = self.finds(By.CSS_SELECTOR, '.member_colRight_memberTable_tr')
             while len(member_tr) <= 0:
-                member_tr = self.finds(By.CSS_SELECTOR, '.member_colRight_memberTable_tr_Inactive')
+                member_tr = self.finds(By.CSS_SELECTOR, '.member_colRight_memberTable_tr')
             for tr in member_tr:
                 name = tr.find_element(By.CSS_SELECTOR, '.member_colRight_memberTable_td:nth-child(2)')
                 print(name)
