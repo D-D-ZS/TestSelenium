@@ -30,14 +30,5 @@ class TestAddMember:
         re = self.main.got_to_contacts().get_name(username)
         assert username == re
 
-    @pytest.mark.parametrize("username",
-                             yaml.safe_load(open('C:\\Users\\shaun\\PycharmProjects\\TestSelenium\\data\\user.yml')))
-    def test_delete_member(self, username):
-        self.main.got_to_contacts().delete_member(username[0])
-        sleep(1)
-        re = self.main.got_to_contacts().get_name(username[0])
-        assert re is None
-
-
 if __name__ == '__main__':
     pytest.main()
