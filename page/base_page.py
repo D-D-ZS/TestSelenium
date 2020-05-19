@@ -40,3 +40,13 @@ class BasePage:
 
     def wait_for_element(self, conditions, time=10):
         return WebDriverWait(self._driver, time).until(conditions)
+
+    def wait_for_visible(self, locator, time=10):
+        return WebDriverWait(self._driver, time).until(
+            expected_conditions.visibility_of_element_located(locator)
+        )
+
+    def wait_for_invisible(self, time, locator):
+        return WebDriverWait(self._driver, time).until(
+            expected_conditions.invisibility_of_element_located(locator)
+        )

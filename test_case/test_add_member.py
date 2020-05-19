@@ -28,7 +28,5 @@ class TestAddMember:
     def test_add_member(self, username, account, phone):
         self.main.got_to_contacts().go_to_add_member().add_member(username, account, phone)
         re = self.main.got_to_contacts().get_name(username)
-        assert username == re
+        assert re
 
-if __name__ == '__main__':
-    pytest.main()

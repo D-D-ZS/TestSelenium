@@ -29,40 +29,51 @@ class ContactsPage(BasePage):
         self.wait_for_element(is_visible)
         return AddMember(self._driver)
 
-    def get_member_names(self):
-        names = []
-        while True:
-            self.wait_for_click((By.CSS_SELECTOR, '.member_colRight_memberTable_th_Checkbox'))
-            elements = self.finds(By.CSS_SELECTOR, '.member_colRight_memberTable_td:nth-child(2)')
-            for element in elements:
-                names.append(element.get_attribute("title"))
+    def update_page(self):
+        try:
             current_page, total_page = [int(x) for x in
                                         self.find(By.CSS_SELECTOR, '.ww_pageNav_info_text').text.split('/')]
-            if current_page == total_page:
-                return names
-            else:
-                self.find(By.CSS_SELECTOR, '.js_has_member>.ww_operationBar:nth-child(1) .js_next_page').click()
+        except Exception as e:
+            current_page = total_page = 1
+        return current_page, total_page
+
+    # def get_name(self, username):
+    #     while True:
+    #         self.wait_for_click((By.CSS_SELECTOR, '.member_colRight_memberTable_th_Checkbox'))
+    #         elements = self.finds(By.CSS_SELECTOR, '.member_colRight_memberTable_td:nth-child(2)')
+    #         print(len(elements))
+    #         for element in elements:
+    #             print(username, element.get_attribute('title'))
+    #             if username == element.get_attribute('title'):
+    #                 print(username, element.get_attribute('title'))
+    #                 return True
+    #
+    #         current_page, total_page = self.update_page()
+    #         if current_page == total_page:
+    #             return False
+    #         else:
+    #             self.find(By.CSS_SELECTOR, '.js_has_member>.ww_operationBar:nth-child(1) .js_next_page').click()
 
     def get_member(self, username):
         while True:
-            # self.wait_for_click((By.CSS_SELECTOR, '.member_colRight_memberTable_th_Checkbox'))
             self.wait_for_click((By.CSS_SELECTOR, '.js_operationBar_footer>.js_add_member'))
-            # elements = self.finds(By.CSS_SELECTOR, '.member_colRight_memberTable_td:nth-child(2)')
+
+            current_page, total_page = self.update_page()
+            if current_page != 1:
+                self.find(By.ID, 'menu_contacts')
+                self.wait_for_click((By.CSS_SELECTOR, '.js_operationBar_footer>.js_add_member'))
+
             member_tr = self.finds(By.CSS_SELECTOR, '.member_colRight_memberTable_tr')
             while len(member_tr) <= 0:
                 member_tr = self.finds(By.CSS_SELECTOR, '.member_colRight_memberTable_tr')
-            for tr in member_tr:
-                name = tr.find_element(By.CSS_SELECTOR, '.member_colRight_memberTable_td:nth-child(2)')
-                print(name)
-                if username == name.get_attribute("title"):
-                    return tr
-            try:
-                current_page, total_page = [int(x) for x in
-                                            self.find(By.CSS_SELECTOR, '.ww_pageNav_info_text').text.split('/')]
-            except Exception as e:
-                current_page = 0
-                total_page = 0
 
+            for tr in member_tr:
+                member = tr
+                name = member.find_element(By.CSS_SELECTOR, '.member_colRight_memberTable_td:nth-child(2)').get_attribute("title")
+                print(username, name)
+                if username == name:
+                    print(username, name)
+                    return member
             if current_page == total_page:
                 return None
             else:
@@ -72,16 +83,15 @@ class ContactsPage(BasePage):
         tr = self.get_member(username)
         if tr is not None:
             tr.find_element(By.CSS_SELECTOR, '.member_colRight_memberTable_td_Checkbox').click()
-
-        self.find(By.CSS_SELECTOR, '.js_has_member>.ww_operationBar:nth-child(1)>.js_delete').click()
-        ele = self.wait_for_click((By.CSS_SELECTOR, '[d_ck=submit]'))
-        ele.click()
+            self.find(By.CSS_SELECTOR, '.js_has_member>.ww_operationBar:nth-child(1)>.js_delete').click()
+            ele = self.wait_for_click((By.CSS_SELECTOR, '[d_ck=submit]'))
+            ele.click()
+        else:
+            print(f"没有用户：{username}")
 
     def get_name(self, username):
-        tr = self.get_member(username)
-        if tr is not None:
-            name = tr.find_element(By.CSS_SELECTOR, '.member_colRight_memberTable_td:nth-child(2)').get_attribute(
-                'title')
-            return name
+        member = self.get_member(username)
+        if member is not None:
+            return True
         else:
-            return None
+            return False
