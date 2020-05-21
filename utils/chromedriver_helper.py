@@ -35,7 +35,7 @@ class ChromeDriver:
         with open(chrome_data) as f:
             version = f.readline()
         version_path = os.path.join(driver_path, version)
-        print(driver_path, version_path)
+        # print(driver_path, version_path)
 
         def get_file(version):
             url = mirror + '/' + version + '/' + zip_driver
