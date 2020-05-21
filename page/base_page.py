@@ -27,7 +27,7 @@ class BasePage:
             options = Options()
             options.debugger_address = "127.0.0.1:9999"
             self._driver = webdriver.Chrome(executable_path=ChromeDriver().get_driver(), options=options)
-            self._driver.implicitly_wait(5)
+            self._driver.implicitly_wait(3)
         else:
             self._driver = driver
         if self._base_url != "":
@@ -56,3 +56,6 @@ class BasePage:
         return WebDriverWait(self._driver, time).until(
             expected_conditions.invisibility_of_element_located(locator)
         )
+
+    def refresh(self):
+        self._driver.refresh()
