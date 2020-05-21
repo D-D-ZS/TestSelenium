@@ -25,8 +25,5 @@ class TestDeleteMember:
                              yaml.safe_load(open('C:\\Users\\shaun\\PycharmProjects\\TestSelenium\\data\\user_name_list.yml')))
     def test_delete_member(self, username):
         self.main.got_to_contacts().delete_member(username)
-        # other = Main()
-        # re = other.got_to_contacts().get_name(username)
-        # other._driver.quit()
-        re = self.main.got_to_contacts().get_name(username)
-        assert re is False
+        result = self.main.got_to_contacts().get_name(username)
+        assert result is False

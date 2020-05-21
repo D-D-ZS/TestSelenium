@@ -82,11 +82,13 @@ class ContactsPage(BasePage):
                 logging.debug(f'delete===:读取成员{member}')
                 try:
                     self.wait_for_click((By.CSS_SELECTOR, f'.member_colRight_memberTable_tr:nth-child({loop})>.member_colRight_memberTable_td:nth-child(2)'))
-                    name = member.find_element(By.CSS_SELECTOR, '.member_colRight_memberTable_td:nth-child(2)').get_attribute("title")
+                    member_info = member.find_elements(By.CSS_SELECTOR, '.member_colRight_memberTable_td')
+                    # name = member.find_element(By.CSS_SELECTOR, '.member_colRight_memberTable_td:nth-child(2)').get_attribute("title")
+                    name = member_info[1].get_attribute("title")
                     logging.debug(f'delete===:获取第{loop}个成员名称：{name}')
                     if username == name:
                         logging.info(f'delete===:成员名称{username}在通讯录中（{name}），返回')
-                        return member
+                        return member_info
                 except Exception as e:
                     logging.error(f'delete===:获取成员名称失败 {e}')
                 finally:
@@ -100,9 +102,9 @@ class ContactsPage(BasePage):
                 logging.info(f'delete===:当前页没有找到成员名称{username}，进入下一页')
 
     def delete_member(self, username):
-        tr = self.get_member(username)
-        if tr is not None:
-            tr.find_element(By.CSS_SELECTOR, '.member_colRight_memberTable_td_Checkbox').click()
+        member_info = self.get_member(username)
+        if member_info is not None:
+            member_info[0].click()
             self.find(By.CSS_SELECTOR, '.js_has_member>.ww_operationBar:nth-child(1)>.js_delete').click()
             ele = self.wait_for_click((By.CSS_SELECTOR, '[d_ck=submit]'))
             ele.click()
@@ -110,8 +112,8 @@ class ContactsPage(BasePage):
             logging.error(f"delete===:没有用户：{username}")
 
     def get_name(self, username):
-        member = self.get_member(username)
-        if member is not None:
+        member_info = self.get_member(username)
+        if member_info is not None:
             return True
         else:
             return False

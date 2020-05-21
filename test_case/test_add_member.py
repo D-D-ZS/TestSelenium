@@ -30,5 +30,5 @@ class TestAddMember:
                              yaml.safe_load(open('C:\\Users\\shaun\\PycharmProjects\\TestSelenium\\data\\user.yml')))
     def test_add_member(self, username, account, phone):
         self.main.got_to_contacts().go_to_add_member().add_member(username, account, phone)
-        re = self.main.got_to_contacts().get_name(username)
-        assert re
+        result = self.main.got_to_contacts().get_name(username)
+        assert result
