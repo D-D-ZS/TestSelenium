@@ -13,6 +13,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 import logging
 from utils.log_helper import LogHelper
+from utils.chromedriver_helper import ChromeDriver
 
 LogHelper().set_logger()
 
@@ -25,7 +26,7 @@ class BasePage:
         if driver is None:
             options = Options()
             options.debugger_address = "127.0.0.1:9999"
-            self._driver = webdriver.Chrome(options=options)
+            self._driver = webdriver.Chrome(executable_path=ChromeDriver().get_driver(), options=options)
             self._driver.implicitly_wait(5)
         else:
             self._driver = driver

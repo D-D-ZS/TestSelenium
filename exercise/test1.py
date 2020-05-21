@@ -8,7 +8,9 @@
 # 
 from selenium import webdriver
 
-driver = webdriver.Firefox()
+from utils.chromedriver_helper import ChromeDriver
+
+driver = webdriver.Chrome(executable_path=ChromeDriver().get_driver())
 driver.get("http://www.baidu.com")
 driver.find_element_by_id("kw").send_keys("Selenium2")
 driver.find_element_by_id("su").click()
