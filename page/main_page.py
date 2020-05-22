@@ -9,7 +9,7 @@
 from selenium.webdriver.common.by import By
 
 from page.add_member_page import AddMember
-from page.base_page import BasePage
+from utils.base import BasePage
 from page.contacts_page import ContactsPage
 from utils.log_helper import LogHelper
 import logging

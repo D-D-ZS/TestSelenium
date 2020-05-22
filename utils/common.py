@@ -18,4 +18,3 @@ class Common:
             raise Exception(f'{zif_filename} is not a zip file')
         z = zipfile.ZipFile(zif_filename)
         z.extractall(unzip_filename)
-

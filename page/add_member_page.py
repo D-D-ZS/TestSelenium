@@ -8,7 +8,7 @@
 #
 from selenium.webdriver.common.by import By
 
-from page.base_page import BasePage
+from utils.base import BasePage
 from utils.log_helper import LogHelper
 import logging
 

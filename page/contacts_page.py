@@ -11,7 +11,7 @@ import logging
 from selenium.webdriver.common.by import By
 
 from page.add_member_page import AddMember
-from page.base_page import BasePage
+from utils.base import BasePage
 from utils.log_helper import LogHelper
 
 logger = LogHelper()

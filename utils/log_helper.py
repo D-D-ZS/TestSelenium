@@ -7,6 +7,7 @@
 # File    : logging.py  
 #
 import logging
+import os
 
 import yaml
 
@@ -14,7 +15,8 @@ import yaml
 class LogHelper():
 
     def set_logger(self):
-        config = yaml.safe_load(open('../config/config.yml')).get('logging')
+        path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config/config.yml')
+        config = yaml.safe_load(open(path)).get('logging')
         filename = config.get('path')
         level = config.get('level')
         if level == 'info':
