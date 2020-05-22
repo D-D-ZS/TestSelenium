@@ -10,7 +10,7 @@ import logging
 
 from selenium.webdriver.common.by import By
 
-from page.add_member_page import AddMember
+from web.page import AddMember
 from utils.base import BasePage
 from utils.log_helper import LogHelper
 

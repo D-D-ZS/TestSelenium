@@ -10,7 +10,7 @@
 import pytest
 import yaml
 
-from page.main_page import Main
+from web.page.main_page import Main
 
 
 class TestDeleteMember:
@@ -22,7 +22,7 @@ class TestDeleteMember:
         self._driver.quit()
 
     @pytest.mark.parametrize("username",
-                             yaml.safe_load(open('C:\\Users\\shaun\\PycharmProjects\\TestSelenium\\data\\user_name_list.yml')))
+                             yaml.safe_load(open('/data/user_name_list.yml')))
     def test_delete_member(self, username):
         self.main.got_to_contacts().delete_member(username)
         result = self.main.got_to_contacts().get_name(username)
