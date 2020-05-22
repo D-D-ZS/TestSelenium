@@ -7,12 +7,7 @@
 # File    : add_member_page.py
 #
 from selenium.webdriver.common.by import By
-
 from utils.base import BasePage
-from utils.log_helper import LogHelper
-import logging
-
-LogHelper().set_logger()
 
 
 class AddMember(BasePage):
@@ -21,4 +16,4 @@ class AddMember(BasePage):
         self.find(By.ID, 'memberAdd_acctid').send_keys(account)
         self.find(By.ID, 'memberAdd_phone').send_keys(phone)
         self.find(By.CSS_SELECTOR, '.js_member_editor_form>div:nth-child(1)>a:nth-child(2)').click()
-        logging.info(f'添加成员：{username}')
+        self.log.info(f'添加成员：{username}')

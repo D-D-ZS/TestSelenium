@@ -18,3 +18,12 @@ class Common:
             raise Exception(f'{zif_filename} is not a zip file')
         z = zipfile.ZipFile(zif_filename)
         z.extractall(unzip_filename)
+
+    def parse_path(self) -> dict:
+        project_path = os.path.dirname(os.path.dirname(__file__))
+        config_path = os.path.join(project_path, 'config')
+        data_path = os.path.join(project_path, 'data')
+        log_path = os.path.join(project_path, 'logs')
+        report_path = os.path.join(project_path, 'report')
+        return {"project_path": project_path, "config_path": config_path, "data_path": data_path, "log_path": log_path,
+                "report_path": report_path}

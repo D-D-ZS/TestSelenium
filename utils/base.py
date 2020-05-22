@@ -6,7 +6,7 @@
 # Author  : DanDan Zhao 
 # File    : base_page.py  
 #
-from selenium import webdriver
+import selenium
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions
@@ -14,25 +14,34 @@ from selenium.webdriver.support.wait import WebDriverWait
 import logging
 from utils.log_helper import LogHelper
 from utils.chromedriver_helper import ChromeDriver
-
-LogHelper().set_logger()
+import appium
 
 
 class BasePage:
     _base_url = ""
     _driver = None
 
-    def __init__(self, driver: WebDriver = None):
+    def __init__(self, platform="web", driver: WebDriver = None, desired_caps=None):
+        LogHelper().set_logger()
+        self.log = logging
         if driver is None:
-            options = Options()
-            options.debugger_address = "127.0.0.1:9999"
-            self._driver = webdriver.Chrome(executable_path=ChromeDriver().get_driver(), options=options)
-            self._driver.implicitly_wait(3)
+            if platform == "web":
+                webdriver = selenium.webdriver
+                options = Options()
+                options.debugger_address = "127.0.0.1:9999"
+                self._driver = webdriver.Chrome(executable_path=ChromeDriver().get_driver(), options=options)
+                self._driver.implicitly_wait(3)
+            elif platform == "android":
+                webdriver = appium.webdriver
+                self._driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+                self._driver.implicitly_wait(10)
+            elif platform == "ios":
+                pass
         else:
             self._driver = driver
         if self._base_url != "":
             self._driver.get(self._base_url)
-            logging.info(f'访问地址：{self._base_url}')
+            self.log.info(f'访问地址：{self._base_url}')
 
     def find(self, by, locator):
         return self._driver.find_element(by, locator)
