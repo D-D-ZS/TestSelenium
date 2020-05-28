@@ -11,19 +11,18 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-import logging
 from utils.log_helper import LogHelper
 from utils.chromedriver_helper import ChromeDriver
 import appium
+from appium import webdriver as appium_webdriver
 
 
 class BasePage:
     _base_url = ""
     _driver = None
+    log = LogHelper().set_logger()
 
     def __init__(self, platform="web", driver: WebDriver = None, desired_caps=None):
-        LogHelper().set_logger()
-        self.log = logging
         if driver is None:
             if platform == "web":
                 webdriver = selenium.webdriver
@@ -32,7 +31,7 @@ class BasePage:
                 self._driver = webdriver.Chrome(executable_path=ChromeDriver().get_driver(), options=options)
                 self._driver.implicitly_wait(3)
             elif platform == "android":
-                webdriver = appium.webdriver
+                webdriver = appium_webdriver
                 self._driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
                 self._driver.implicitly_wait(10)
             elif platform == "ios":
@@ -61,10 +60,22 @@ class BasePage:
             expected_conditions.visibility_of_element_located(locator)
         )
 
-    def wait_for_invisible(self, time, locator):
+    def wait_for_invisible(self, locator, time=10):
         return WebDriverWait(self._driver, time).until(
             expected_conditions.invisibility_of_element_located(locator)
         )
 
+    def wait_for_present(self,  locator, time=10):
+        return WebDriverWait(self._driver, time).until(
+            expected_conditions.presence_of_element_located(locator)
+        )
+
     def refresh(self):
         self._driver.refresh()
+
+    def app_back(self):
+        """
+        only for Android
+        :return:
+        """
+        self._driver.keyevent(4)
