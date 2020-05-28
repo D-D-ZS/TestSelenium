@@ -9,8 +9,7 @@
 # import logging
 from appium.webdriver.common.mobileby import MobileBy
 
-from p_appium.search_page import SearchPage
-from utils.base import LogHelper
+from p_appium.xueqiu_page.search_page import SearchPage
 from utils.base import BasePage
 
 # logger = LogHelper().set_logger()

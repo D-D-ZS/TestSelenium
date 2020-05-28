@@ -8,8 +8,7 @@
 #
 import pytest
 
-from p_appium.main_page import MainPage
-from p_appium.search_page import SearchPage
+from p_appium.xueqiu_page.main_page import MainPage
 
 
 class TestSearch:
