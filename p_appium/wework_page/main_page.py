@@ -8,6 +8,9 @@
 #
 from appium.webdriver.common.mobileby import MobileBy
 
+from p_appium.wework_page.contacts_page import ContactsPage
+from p_appium.wework_page.mine_page import MinePage
+from p_appium.wework_page.os_page import OaPage
 from utils.base import BasePage
 
 
@@ -16,14 +19,17 @@ class MainPage(BasePage):
     def go_to_contacts(self):
         self.find(MobileBy.XPATH, '//*[@resource-id="com.tencent.wework:id/drb" and @text="通讯录"]').click()
         self.wait_for_visible((MobileBy.ID, 'com.tencent.wework:id/d94'), 10)
-        return True
+        self.log.info("to_page===: 进入通讯录页面")
+        return ContactsPage(driver=self._driver)
 
     def go_to_oa(self):
         self.find(MobileBy.XPATH, '//*[@resource-id="com.tencent.wework:id/drb" and @text="工作台"]').click()
         self.wait_for_visible((MobileBy.XPATH, '//*[@resource-id="com.tencent.wework:id/gv4" and @text="工作台"]'), 10)
-        return True
+        self.log.info("to_page===: 进入工作台页面")
+        return OaPage(driver=self._driver)
 
     def go_to_mine(self):
         self.find(MobileBy.XPATH, '//*[@resource-id="com.tencent.wework:id/drb" and @text="我"]').click()
         self.wait_for_visible((MobileBy.XPATH, '//*[@resource-id="com.tencent.wework:id/gv4" and @text="我"]'), 10)
-        return True
+        self.log.info("to_page===: 进入我的页面")
+        return MinePage(driver=self._driver)

@@ -8,10 +8,11 @@
 #
 from appium.webdriver.common.mobileby import MobileBy
 
+from p_appium.wework_page.manual_add_page import ManualAddPage
 from utils.base import BasePage
 
 
-class AddMemeberPage(BasePage):
+class AddMemberPage(BasePage):
     def go_to_wechat_invite(self):
         pass
 
@@ -20,5 +21,5 @@ class AddMemeberPage(BasePage):
 
     def go_to_manual(self):
         self.find(MobileBy.ID, 'com.tencent.wework:id/h3a').click()
-        self.wait_for_click((MobileBy.XPATH, '//*[@reourse-id="com.tencent.wework:id/au8" and @text="姓名"]/../[@resource-id="com.tencent.wework:id/au7"]'))
-        return True
+        self.wait_for_click((MobileBy.ID, 'com.tencent.wework:id/au7'), 10)
+        return ManualAddPage(driver=self._driver)
