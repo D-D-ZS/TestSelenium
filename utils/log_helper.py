@@ -33,3 +33,4 @@ class LogHelper():
         encode = config.get('encode')
         h = logging.FileHandler(filename=filename, encoding=encode)
         logging.basicConfig(level=level, format=log_format, handlers=[h])
+        return logging
