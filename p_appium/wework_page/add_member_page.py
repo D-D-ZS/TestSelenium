@@ -23,3 +23,8 @@ class AddMemberPage(BasePage):
         self.find(MobileBy.ID, 'com.tencent.wework:id/h3a').click()
         self.wait_for_click((MobileBy.ID, 'com.tencent.wework:id/au7'), 10)
         return ManualAddPage(driver=self._driver)
+
+    def get_toast(self):
+        # 抓取toast信息
+        status_ele = self.wait_for_present((MobileBy.XPATH, '//*[@class="android.widget.Toast"]'), 10)
+        return status_ele.text

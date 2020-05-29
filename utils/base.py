@@ -115,6 +115,9 @@ class BasePage:
         self.log.info(f'===当前activity: {current_activity}')
         return current_activity
 
+    def app_close(self, app_id):
+        self._driver.terminate_app(app_id)
+
     def scroll_to_element(self, by, locator):
         while True:
             try:

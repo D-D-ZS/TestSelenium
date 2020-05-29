@@ -110,11 +110,5 @@ class ManualAddPage(BasePage):
             MobileBy.ID, 'com.tencent.wework:id/gvk'
         ).click()
         self.log.info(f"===: 添加成员{username}结束")
-        # 抓取toast信息，判断是否添加成功
-        status_ele = self.wait_for_present((MobileBy.XPATH, '//*[@class="android.widget.Toast"]'), 10)
-        if status_ele.text == "添加成功":
-            self.log.info(f"===: 添加成员{username}成功")
-            return True
-        else:
-            self.log.info(f"===: 添加成员{username}失败")
-            return False
+        from p_appium.wework_page.add_member_page import AddMemberPage
+        return AddMemberPage(driver=self._driver)

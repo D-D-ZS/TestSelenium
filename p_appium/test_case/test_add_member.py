@@ -41,7 +41,8 @@ class TestAddMember:
     @pytest.mark.parametrize("username, address, mobile_phone",
                              yaml.safe_load(open(os.path.join(data_path, 'user.yml'))))
     def test_add_member(self, username, address, mobile_phone):
-        result = self.main_page.go_to_contacts().go_to_add_member().go_to_manual().add_member(username=username,
-                                                                                              address=address,
-                                                                                              mobile_phone=mobile_phone)
-        assert result
+        page = self.main_page.go_to_contacts().go_to_add_member().go_to_manual().add_member(username=username,
+                                                                                            address=address,
+                                                                                            mobile_phone=mobile_phone)
+        result = page.get_toast()
+        assert "成功" in result
