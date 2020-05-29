@@ -15,8 +15,9 @@ from utils.base import BasePage
 
 class ContactsPage(BasePage):
     def go_to_add_member(self):
-        # self.find(MobileBy.XPATH, '//*[@resource-id="com.tencent.wework:id/h1x"]/[@text="添加成员"]').click()
-        self.find(MobileBy.XPATH, '//*[@resource-id="com.tencent.wework:id/h1x"]/*[@text="添加成员"]').click()
+        ele = self.scroll_to_element(MobileBy.XPATH, '//*[@resource-id="com.tencent.wework:id/h1x"]/*[@text="添加成员"]')
+        # ele2 = self.find(MobileBy.XPATH, '//*[@resource-id="com.tencent.wework:id/h1x"]/*[@text="添加成员"]')
+        ele.click()
         self.wait_for_visible((MobileBy.XPATH, '//*[@resource-id="com.tencent.wework:id/gv4" and @text="添加成员"]'), 10)
         self.log.info("to_page===: 进入添加成员页面")
         return AddMemberPage(driver=self._driver)

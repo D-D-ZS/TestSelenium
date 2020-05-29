@@ -7,14 +7,15 @@
 # File    : base_page.py  
 #
 import selenium
+from appium.webdriver.common.mobileby import MobileBy
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from utils.log_helper import LogHelper
 from utils.chromedriver_helper import ChromeDriver
-import appium
 from appium import webdriver as appium_webdriver
+from appium.webdriver.mobilecommand import MobileCommand as Command
 
 
 class BasePage:
@@ -78,4 +79,36 @@ class BasePage:
         only for Android
         :return:
         """
-        self._driver.keyevent(4)
+        self._driver.back()
+
+    def get_package(self):
+        value = self._driver.execute(Command.GET_CURRENT_PACKAGE)
+        package = value.get("value")
+        return package
+
+    def app_start_activity(self, app_package: str, app_activity: str):
+        """
+        This is an Android-only method.
+        :param app_package:
+        :param app_activity:
+        :return:
+        """
+        a = self._driver.start_activity(app_package, app_package)
+
+    def app_current_activity(self):
+        current_activity = self._driver.current_activity
+        self.log.info(f'===当前activity: {current_activity}')
+        return current_activity
+
+    def scroll_to_element(self, by, locator):
+        while True:
+            try:
+                if self.find(by, locator).is_displayed():
+                    return self.find(by, locator)
+            except Exception as e:
+                self.log.info("====: 未找到元素")
+                size = self._driver.get_window_size()
+                x = size.get('width') / 2
+                y1 = size.get('height') / 4
+                y2 = size.get('height') * 3 / 4
+                self._driver.swipe(start_x=x, start_y=y2, end_x=x, end_y=y1)

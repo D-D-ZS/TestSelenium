@@ -18,7 +18,7 @@ class MainPage(BasePage):
 
     def go_to_contacts(self):
         self.find(MobileBy.XPATH, '//*[@resource-id="com.tencent.wework:id/drb" and @text="通讯录"]').click()
-        self.wait_for_visible((MobileBy.ID, 'com.tencent.wework:id/d94'), 10)
+        self.wait_for_visible((MobileBy.ID, 'com.tencent.wework:id/gvi'), 10)
         self.log.info("to_page===: 进入通讯录页面")
         return ContactsPage(driver=self._driver)
 

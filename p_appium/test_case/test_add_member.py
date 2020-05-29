@@ -34,11 +34,14 @@ class TestAddMember:
     def teardown_class(self):
         self.main_page._driver.quit()
 
-    def teardown(self):
-        if "通信录" not in self.main_page._driver.page_source:
+    def setup(self):
+        if self.main_page.app_current_activity() == ".friends.controller.MemberInviteMenuActivity":
             self.main_page.app_back()
 
-    @pytest.mark.parametrize("username, address, mobile_phone", yaml.safe_load(open(os.path.join(data_path, 'user.yml'))))
+    @pytest.mark.parametrize("username, address, mobile_phone",
+                             yaml.safe_load(open(os.path.join(data_path, 'user.yml'))))
     def test_add_member(self, username, address, mobile_phone):
-        result = self.main_page.go_to_contacts().go_to_add_member().go_to_manual().add_member(username=username, address=address, mobile_phone=mobile_phone)
+        result = self.main_page.go_to_contacts().go_to_add_member().go_to_manual().add_member(username=username,
+                                                                                              address=address,
+                                                                                              mobile_phone=mobile_phone)
         assert result
