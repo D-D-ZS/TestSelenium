@@ -13,6 +13,17 @@ from selenium.webdriver.common.by import By
 
 
 def except_windows(func):
+    """
+    意外弹窗处理。
+    执行 func 函数，如果正常则重置显示等待并返回，
+    如果异常则查找弹窗，首先查找 web 页面的 alert，如果未找到则查找黑名单元素，
+    黑名单元素没有找到则抛出 func 的异常，如果找到 alert 或 黑名单元素则处理掉，并进入下一次循环。
+    可处理多个弹窗重叠的情况。
+    _black_list: 弹窗黑名单
+    :param func: 传入的函数
+    :return:
+    """
+    @wraps(func)
     def handle_except(*args, **kwargs):
         from utils.base import BasePage
         _black_list = [
@@ -26,10 +37,13 @@ def except_windows(func):
             (By.XPATH, '//*[@text="以了解"]'),
             (By.XPATH, '//*[@text="允许"]')
         ]
+        # 获取调用 func 的实例对象，BasePage 类型对象
         instance: BasePage = args[0]
+        # 调整显示等待时间，提高效率
         instance.driver.implicitly_wait(1)
         while True:
             try:
+                # _num 记录找到的弹窗数量，每次循环重置
                 _num = 0
                 ele = func(*args, **kwargs)
                 instance.driver.implicitly_wait(5)
@@ -51,6 +65,7 @@ def except_windows(func):
                             break
                         else:
                             instance.log.info(f'===未查找到可定位的弹窗 {locator}')
+                # 如果没有找到弹窗则抛出func执行的异常
                 if _num == 0:
                     raise e1
     return handle_except
