@@ -26,6 +26,14 @@ class BasePage:
     log = LogHelper().set_logger()
 
     def __init__(self, platform="web", driver: WebDriver = None, desired_caps=None):
+        """
+        实例化时如果传入 driver，直接使用 传入的 driver，如果没有则判断 platform ，并生成对应的driver
+        默认生成 selenium webdriver
+        暂时只实现了web 和 android 平台
+        :param platform: 平台，web android ios
+        :param driver:
+        :param desired_caps: Android 平台的 desired_capabilities
+        """
         if driver is None:
             if platform == "web":
                 webdriver = selenium.webdriver
@@ -77,14 +85,14 @@ class BasePage:
     def refresh(self):
         self._driver.refresh()
 
-    def app_back(self):
-        """
-        only for Android
-        :return:
-        """
+    def back(self):
         self._driver.back()
 
-    def get_package(self):
+    def get_package(self) -> str:
+        """
+        获取当前运行的package
+        :return:
+        """
         value = self._driver.execute(Command.GET_CURRENT_PACKAGE)
         package = value.get("value")
         return package
@@ -96,9 +104,13 @@ class BasePage:
         :param app_activity:
         :return:
         """
-        a = self._driver.start_activity(app_package, app_package)
+        return self._driver.start_activity(app_package, app_activity)
 
-    def app_current_activity(self):
+    def app_current_activity(self) -> str:
+        """
+        This is an Android-only method.
+        :return: str
+        """
         current_activity = self._driver.current_activity
         self.log.info(f'===当前activity: {current_activity}')
         return current_activity

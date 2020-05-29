@@ -36,7 +36,7 @@ class TestAddMember:
 
     def setup(self):
         if self.main_page.app_current_activity() == ".friends.controller.MemberInviteMenuActivity":
-            self.main_page.app_back()
+            self.main_page.back()
 
     @pytest.mark.parametrize("username, address, mobile_phone",
                              yaml.safe_load(open(os.path.join(data_path, 'user.yml'))))
