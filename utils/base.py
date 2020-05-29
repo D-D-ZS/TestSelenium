@@ -12,6 +12,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
+
+from utils.except_windows import except_windows
 from utils.log_helper import LogHelper
 from utils.chromedriver_helper import ChromeDriver
 from appium import webdriver as appium_webdriver
@@ -34,7 +36,7 @@ class BasePage:
             elif platform == "android":
                 webdriver = appium_webdriver
                 self._driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-                self._driver.implicitly_wait(10)
+                self._driver.implicitly_wait(5)
             elif platform == "ios":
                 pass
         else:
@@ -43,6 +45,7 @@ class BasePage:
             self._driver.get(self._base_url)
             self.log.info(f'访问地址：{self._base_url}')
 
+    @except_windows
     def find(self, by, locator):
         return self._driver.find_element(by, locator)
 
@@ -66,7 +69,7 @@ class BasePage:
             expected_conditions.invisibility_of_element_located(locator)
         )
 
-    def wait_for_present(self,  locator, time=10):
+    def wait_for_present(self, locator, time=10):
         return WebDriverWait(self._driver, time).until(
             expected_conditions.presence_of_element_located(locator)
         )
@@ -112,3 +115,7 @@ class BasePage:
                 y1 = size.get('height') / 4
                 y2 = size.get('height') * 3 / 4
                 self._driver.swipe(start_x=x, start_y=y2, end_x=x, end_y=y1)
+
+    @property
+    def driver(self):
+        return self._driver
