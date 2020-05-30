@@ -20,4 +20,4 @@ class MainPage(BasePage):
     def go_to_search(self):
         self.find(MobileBy.ID, 'com.xueqiu.android:id/tv_search').click()
         self.log.info(f"====android====: 进入搜索页")
-        return SearchPage(self._driver)
+        return SearchPage(driver=self._driver)

@@ -8,25 +8,31 @@
 #
 import pytest
 
+from p_appium.xueqiu_page.app import App
 from p_appium.xueqiu_page.main_page import MainPage
+from p_appium.xueqiu_page.search_page import SearchPage
 
 
 class TestSearch:
-    desired_caps = {
-        "platformName": "Android",
-        "deviceName": "127.0.0.1:7555",
-        "appPackage": "com.xueqiu.android",
-        "appActivity": ".view.WelcomeActivityAlias",
-        "noReset": True
-    }
+    # desired_caps = {
+    #     "platformName": "Android",
+    #     "deviceName": "127.0.0.1:7555",
+    #     "appPackage": "com.xueqiu.android",
+    #     "appActivity": ".view.WelcomeActivityAlias",
+    #     "noReset": True
+    # }
 
-    def setup(self):
-        self.base = MainPage(platform='android', desired_caps=self.desired_caps)
+    def setup_class(self):
+        # self.base = MainPage(platform='android', desired_caps=self.desired_caps)
+        self.base = App().start_app()
 
     def teardown(self):
-        self.base._driver.quit()
+        SearchPage(driver=self.base.driver).cancel()
         
-    @pytest.mark.parametrize("stock_name", ["阿里巴巴", "小米", "中国平安"])
+    @pytest.mark.parametrize("stock_name", ["阿里巴巴", "小米概念", "中国平安"])
     def test_search(self, stock_name):
-        result = self.base.go_to_search()
-        # assert result[0] != result[1]
+        result = self.base.go_to_search().search_stock(stock_name).get_toast()
+        if "添加成功" or "已从自选删除" in result:
+            assert True
+        else:
+            assert False

@@ -7,6 +7,7 @@
 # File    : base_page.py  
 #
 import selenium
+from appium.webdriver import WebElement
 from appium.webdriver.common.mobileby import MobileBy
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -44,7 +45,7 @@ class BasePage:
             elif platform == "android":
                 webdriver = appium_webdriver
                 self._driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-                self._driver.implicitly_wait(5)
+                self._driver.implicitly_wait(10)
             elif platform == "ios":
                 pass
         else:
@@ -134,3 +135,9 @@ class BasePage:
     @property
     def driver(self):
         return self._driver
+
+    def quit(self):
+        self._driver.quit()
+
+    def get_toast_element(self) -> WebElement:
+        return self.wait_for_present((MobileBy.XPATH, '//*[@class="android.widget.Toast"]'), 10)

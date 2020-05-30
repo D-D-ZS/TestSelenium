@@ -35,12 +35,12 @@ def except_windows(func):
             (By.XPATH, '//*[@text="以后再说"]'),
             (By.XPATH, '//*[@text="关闭"]'),
             (By.XPATH, '//*[@text="以了解"]'),
-            (By.XPATH, '//*[@text="允许"]')
+            (By.XPATH, '//*[@text="允许"]'),
+            (By.XPATH, '//*[@text="下次再说"]')
         ]
         # 获取调用 func 的实例对象，BasePage 类型对象
         instance: BasePage = args[0]
-        # 调整显示等待时间，提高效率
-        instance.driver.implicitly_wait(1)
+        _num = 0
         while True:
             try:
                 # _num 记录找到的弹窗数量，每次循环重置
@@ -49,6 +49,8 @@ def except_windows(func):
                 instance.driver.implicitly_wait(5)
                 return ele
             except Exception as e1:
+                # 调整显示等待时间，提高效率
+                instance.driver.implicitly_wait(1)
                 try:
                     instance.driver.switch_to.alert.accept()
                     _num += 1
@@ -67,5 +69,6 @@ def except_windows(func):
                             instance.log.info(f'===未查找到可定位的弹窗 {locator}')
                 # 如果没有找到弹窗则抛出func执行的异常
                 if _num == 0:
+                    instance.log.info(f'===未找到元素：{e1}')
                     raise e1
     return handle_except
