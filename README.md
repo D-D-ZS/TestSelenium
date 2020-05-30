@@ -11,9 +11,12 @@ appium、selenium 练习，基于企业微信、雪球的PO实现
     - user_name_list.yml 用户名称列表
 - exercise 练习目录
 - p_appium APP相关内容
-    - test_case 测试用例
-    - wework_page 企业微信APP page代码
-    - xueqiu_page 雪球APP page代码
+    - wework 企业微信APP
+        - page  page代码
+        - test_case 用例代码
+    - xueqiu 雪球APP 
+        - page page代码
+        - test_case 用例代码
 - utils 工具模块
     - base.py 基类，app、web 的 driver及相关方法封装
     - chromedriver_helper.py 动态获取chrome driver帮助模块
