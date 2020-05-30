@@ -8,20 +8,21 @@
 #
 import pytest
 
-from p_appium.xueqiu.xueqiu_page import App
-from p_appium.xueqiu.xueqiu_page import SearchPage
+from p_appium.xueqiu.page.app import App
+from p_appium.xueqiu.page.search_page import SearchPage
+from p_appium.xueqiu.test_case.test_base import TestBase
 
 
-class TestSearch:
+class TestSearch(TestBase):
 
-    def setup_class(self):
-        self.base = App().start_app()
+    # def setup_class(self):
+    #     self.base = App().start_app()
 
     def teardown(self):
         SearchPage(driver=self.base.driver).cancel()
 
-    def teardown_class(self):
-        self.base.quit()
+    # def teardown_class(self):
+    #     self.base.quit()
         
     @pytest.mark.parametrize("stock_name", ["阿里巴巴", "小米概念", "中国平安"])
     def test_search(self, stock_name):
