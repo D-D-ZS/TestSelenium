@@ -8,9 +8,9 @@
 #
 from appium.webdriver.common.mobileby import MobileBy
 
-from p_appium.wework_page.contacts_page import ContactsPage
-from p_appium.wework_page.mine_page import MinePage
-from p_appium.wework_page.os_page import OaPage
+from p_appium.wework.page.contacts_page import ContactsPage
+from p_appium.wework.page.mine_page import MinePage
+from p_appium.wework.page.os_page import OaPage
 from utils.base import BasePage
 
 

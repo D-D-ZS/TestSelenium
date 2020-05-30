@@ -8,7 +8,7 @@
 #
 from appium.webdriver.common.mobileby import MobileBy
 
-from p_appium.xueqiu_page.search_page import SearchPage
+from p_appium.xueqiu.page.search_page import SearchPage
 from utils.base import BasePage
 
 

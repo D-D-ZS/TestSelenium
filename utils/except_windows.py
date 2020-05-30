@@ -40,6 +40,8 @@ def except_windows(func):
         ]
         # 获取调用 func 的实例对象，BasePage 类型对象
         instance: BasePage = args[0]
+        # 调整显示等待时间，提高效率
+        instance.driver.implicitly_wait(5)
         _num = 0
         while True:
             try:
@@ -49,7 +51,6 @@ def except_windows(func):
                 instance.driver.implicitly_wait(5)
                 return ele
             except Exception as e1:
-                # 调整显示等待时间，提高效率
                 instance.driver.implicitly_wait(1)
                 try:
                     instance.driver.switch_to.alert.accept()

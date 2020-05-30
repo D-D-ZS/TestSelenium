@@ -26,7 +26,7 @@ class BasePage:
     _driver = None
     log = LogHelper().set_logger()
 
-    def __init__(self, platform="web", driver: WebDriver = None, desired_caps=None):
+    def __init__(self, driver: WebDriver = None, platform="web", desired_caps=None):
         """
         实例化时如果传入 driver，直接使用 传入的 driver，如果没有则判断 platform ，并生成对应的driver
         默认生成 selenium webdriver
@@ -125,7 +125,7 @@ class BasePage:
                 if self.find(by, locator).is_displayed():
                     return self.find(by, locator)
             except Exception as e:
-                self.log.info("====: 未找到元素")
+                self.log.info("====: 未找到添加成员元素，滑动屏幕查找")
                 size = self._driver.get_window_size()
                 x = size.get('width') / 2
                 y1 = size.get('height') / 4

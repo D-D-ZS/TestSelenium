@@ -8,8 +8,8 @@
 #
 from appium.webdriver.common.mobileby import MobileBy
 
-from p_appium.wework_page.add_member_page import AddMemberPage
-from p_appium.wework_page.external_page import ExternalPage
+from p_appium.wework.page.add_member_page import AddMemberPage
+from p_appium.wework.page.external_page import ExternalPage
 from utils.base import BasePage
 
 

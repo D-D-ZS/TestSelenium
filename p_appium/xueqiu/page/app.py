@@ -6,10 +6,9 @@
 # Author  : DanDan Zhao 
 # File    : app.py  
 #
-from appium import webdriver
 from appium.webdriver.webdriver import WebDriver
 
-from p_appium.xueqiu_page.main_page import MainPage
+from p_appium.xueqiu.page.main_page import MainPage
 from utils.base import BasePage
 
 

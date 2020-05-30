@@ -7,7 +7,7 @@
 # File    : app.py  
 # 
 # APP 操作类
-from p_appium.wework_page.main_page import MainPage
+from p_appium.wework.page.main_page import MainPage
 from utils.base import BasePage
 
 

@@ -10,7 +10,7 @@ import os
 
 import yaml
 
-from p_appium.wework_page.main_page import MainPage
+from p_appium.wework.page.main_page import MainPage
 from utils.chromedriver_helper import ChromeDriver
 from utils.base import BasePage
 import pytest
@@ -32,11 +32,10 @@ class TestAddMember:
         self.main_page = MainPage(platform="android", desired_caps=self.desired_caps)
 
     def teardown_class(self):
-        self.main_page._driver.quit()
+        self.main_page.quit()
 
-    def setup(self):
-        if self.main_page.app_current_activity() == ".friends.controller.MemberInviteMenuActivity":
-            self.main_page.back()
+    def teardown(self):
+        self.main_page.back()
 
     @pytest.mark.parametrize("username, address, mobile_phone",
                              yaml.safe_load(open(os.path.join(data_path, 'user.yml'))))

@@ -8,7 +8,7 @@
 #
 from appium.webdriver.common.mobileby import MobileBy
 
-from p_appium.wework_page.manual_add_page import ManualAddPage
+from p_appium.wework.page.manual_add_page import ManualAddPage
 from utils.base import BasePage
 
 

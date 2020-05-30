@@ -110,5 +110,5 @@ class ManualAddPage(BasePage):
             MobileBy.ID, 'com.tencent.wework:id/gvk'
         ).click()
         self.log.info(f"===: 添加成员{username}结束")
-        from p_appium.wework_page.add_member_page import AddMemberPage
+        from p_appium.wework.page.add_member_page import AddMemberPage
         return AddMemberPage(driver=self._driver)
