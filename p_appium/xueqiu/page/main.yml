@@ -1,0 +1,8 @@
+- go_to_search:
+    - by: id
+      locator: 'com.xueqiu.android:id/tv_search'
+      action: click
+- go_to_market:
+    - by: xpath
+      locator: '//*[@resource-id="com.xueqiu.android:id/tab_name" and @text="行情"]'
+      action: click

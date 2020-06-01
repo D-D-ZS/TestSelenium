@@ -6,7 +6,10 @@
 # Author  : DanDan Zhao 
 # File    : base_page.py  
 #
+import inspect
+
 import selenium
+import yaml
 from appium.webdriver import WebElement
 from appium.webdriver.common.mobileby import MobileBy
 from selenium.webdriver.chrome.options import Options
@@ -14,6 +17,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
+from utils.common import Common
 from utils.except_windows import except_windows
 from utils.log_helper import LogHelper
 from utils.chromedriver_helper import ChromeDriver
@@ -35,6 +39,7 @@ class BasePage:
         :param driver:
         :param desired_caps: Android 平台的 desired_capabilities
         """
+        self.project_path = Common().parse_path().get("project_path")
         if driver is None:
             if platform == "web":
                 webdriver = selenium.webdriver
@@ -56,6 +61,8 @@ class BasePage:
 
     @except_windows
     def find(self, by, locator):
+        self.log.info(f"===by: {by}")
+        self.log.info(f"===locator: {locator}")
         return self._driver.find_element(by, locator)
 
     def finds(self, by, locator):
@@ -141,3 +148,24 @@ class BasePage:
 
     def get_toast_element(self) -> WebElement:
         return self.wait_for_present((MobileBy.XPATH, '//*[@class="android.widget.Toast"]'), 10)
+
+    # 测试步骤的数据驱动
+    def steps(self, path):
+        name = inspect.stack()[1][3]
+        with open(path, encoding='utf-8') as f:
+            steps = yaml.safe_load(f)
+        for method in steps:
+            print(method.keys())
+            if method.get(name):
+                for step in method.get(name):
+                    print(step)
+                    if "by" in step.keys():
+                        ele = self.find(step.get("by"), step.get("locator"))
+                    if "action" in step.keys():
+                        action = step.get("action")
+                        if action == "click":
+                            ele.click()
+                        elif action == "text":
+                            ele.text()
+                        elif action == "send":
+                            ele.send_keys(step.get("value"))
