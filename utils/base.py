@@ -7,7 +7,7 @@
 # File    : base_page.py  
 #
 import inspect
-
+import allure
 import selenium
 import yaml
 from appium.webdriver import WebElement
@@ -61,8 +61,6 @@ class BasePage:
 
     @except_windows
     def find(self, by, locator):
-        self.log.info(f"===by: {by}")
-        self.log.info(f"===locator: {locator}")
         return self._driver.find_element(by, locator)
 
     def finds(self, by, locator):
@@ -169,3 +167,10 @@ class BasePage:
                             ele.text()
                         elif action == "send":
                             ele.send_keys(step.get("value"))
+
+    def screenshot(self, name):
+        self._driver.save_screenshot(name)
+
+    def picture_attach_allure(self):
+        allure.attach(self._driver.get_screenshot_as_png())
+        return

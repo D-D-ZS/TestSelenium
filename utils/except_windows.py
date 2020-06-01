@@ -52,6 +52,7 @@ def except_windows(func):
                 return ele
             except Exception as e1:
                 instance.driver.implicitly_wait(1)
+                instance.log.info(f"===未找到目标元素，开始查找弹窗")
                 try:
                     instance.driver.switch_to.alert.accept()
                     _num += 1
@@ -70,6 +71,7 @@ def except_windows(func):
                             instance.log.info(f'===未查找到可定位的弹窗 {locator}')
                 # 如果没有找到弹窗则抛出func执行的异常
                 if _num == 0:
-                    instance.log.info(f'===未找到元素：{e1}')
+                    instance.picture_attach_allure()
+                    instance.log.exception(f'===未找到目标元素：{e1}')
                     raise e1
     return handle_except
