@@ -61,6 +61,7 @@ class BasePage:
 
     @except_windows
     def find(self, by, locator):
+        self.log.info(f"===元素定位：{by}, {locator}")
         return self._driver.find_element(by, locator)
 
     def finds(self, by, locator):
@@ -153,10 +154,10 @@ class BasePage:
         with open(path, encoding='utf-8') as f:
             steps = yaml.safe_load(f)
         for method in steps:
-            print(method.keys())
+            # print(method.keys())
             if method.get(name):
                 for step in method.get(name):
-                    print(step)
+                    # print(step)
                     if "by" in step.keys():
                         ele = self.find(step.get("by"), step.get("locator"))
                     if "action" in step.keys():
@@ -173,4 +174,3 @@ class BasePage:
 
     def picture_attach_allure(self):
         allure.attach(self._driver.get_screenshot_as_png())
-        return

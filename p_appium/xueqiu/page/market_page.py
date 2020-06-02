@@ -16,4 +16,5 @@ class MarketPage(BasePage):
     def go_to_search(self):
         self.find(MobileBy.ID, 'com.xueqiu.android:id/action_search').click()
         self.wait_for_visible((MobileBy.ID, 'com.xueqiu.android:id/search_input_text'))
+        self.log.info(f"====android====: 点击搜索")
         return SearchPage(driver=self.driver)

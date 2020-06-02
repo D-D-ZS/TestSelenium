@@ -31,4 +31,5 @@ class MainPage(BasePage):
         # self.find(MobileBy.XPATH, '//*[@resource-id="com.xueqiu.android:id/tab_name" and @text="行情"]').click()
         # self.wait_for_visible((MobileBy.ID, 'com.xueqiu.android:id/action_search'))
         self.steps(os.path.join(self.project_path, "p_appium/xueqiu/page/main.yml"))
+        self.log.info(f"====android====: 进入行情页")
         return MarketPage(driver=self.driver)

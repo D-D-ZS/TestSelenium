@@ -7,7 +7,15 @@
 # File    : common.py  
 #
 import os
+import sys
 import zipfile
+
+
+def kill_pid(pid):
+    if sys.platform == 'win32':
+        os.system(f"taskkill /pid {pid}")
+    else:
+        os.system(f"kill {pid}")
 
 
 class Common:
