@@ -29,5 +29,5 @@ def record():
     # with open(filename, "rb") as f:
     #     file = f.read()
     #     allure.attach(file, name="用例录屏", attachment_type=allure.attachment_type.MP4)
-    allure.attach.file(filename, name="用例录屏", attachment_type=allure.attachment_type.MP4)
     kill_pid(p.pid)
+    allure.attach.file(filename, name="用例录屏", attachment_type=allure.attachment_type.MP4)
