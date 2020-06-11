@@ -30,7 +30,7 @@ def except_windows(func):
             (By.XPATH, '//*[@text="确定"]'),
             (By.XPATH, '//*[@text="好"]'),
             (By.XPATH, '//*[@text="知道了"]'),
-            (By.XPATH, '//*[@resource-id="com.xueqiu.android:id/image_cancel"]'),
+            (By.XPATH, '//*[contains(@resource-id, "cancel")]'),
             (By.XPATH, '//*[@text="无视"]'),
             (By.XPATH, '//*[@text="以后再说"]'),
             (By.XPATH, '//*[@text="关闭"]'),

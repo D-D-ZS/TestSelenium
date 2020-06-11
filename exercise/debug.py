@@ -30,12 +30,15 @@ class TestAsert(BasePage):
 
 
 if __name__ == '__main__':
-    driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-    driver.implicitly_wait(10)
+    # driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+    page = TestAsert(platform='android', desired_caps=desired_caps)
+    # driver.implicitly_wait(10)
     sleep(5)
-    k_v = driver.activate_app("com.tencent.wework")
-    print(k_v)
-    driver.terminate_app("com.tencent.wework")
+    # sleep(5)
+    # k_v = driver.activate_app("com.tencent.wework")
+    # print(k_v)
+    # driver.terminate_app("com.tencent.wework")
+    page.quit()
     # t = TestAsert(driver=driver)
     # # print(t._driver)
     # sleep(15)
