@@ -1,7 +1,7 @@
-xlrd==1.1.0
-requests==2.23.0
 selenium==3.141.0
+xlrd==1.1.0
 pytest==5.4.1
+requests==2.23.0
 Appium_Python_Client==1.0.2
 PyYAML==5.3.1
 wget==3.2
